@@ -1,8 +1,9 @@
 from pynput import keyboard
 
-# Flaga wskazująca, czy klawisz jest wciśnięty
+
 key_pressed = False
 chord = ""
+keyboard_controller = keyboard.Controller()
 
 
 def keyPressed(key):
@@ -27,6 +28,11 @@ def keyReleased(key):
         pass
 
 
+def delKey():
+    keyboard_controller.press(keyboard.Key.backspace)
+    keyboard_controller.release(keyboard.Key.backspace)
+
+
 if __name__ == "__main__":
     listener = keyboard.Listener(on_press=keyPressed, on_release=keyReleased)
     listener.start()
@@ -37,4 +43,5 @@ if __name__ == "__main__":
             while key_pressed:
                 pass
             print("Key released. Waiting for key press... chord:", chord)
+
             chord = ""
